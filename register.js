@@ -22,7 +22,10 @@ con.connect(function (err) {
   if (err) throw err;
   console.log("Connected!");
 });
-app.get("/home", function (req, res) {
+app.get("/updated", function (req, res) {
+  res.sendFile(__dirname + "/updated.html");
+});
+app.get("/", function (req, res) {
   res.sendFile(__dirname + "/home.html");
 });
 
@@ -47,8 +50,8 @@ app.post("/register", function (req, res) {
   const sql = `INSERT INTO user1 (user_id,username,email,password) VALUES ('0','${username}','${email}','${password}')`;
 
   con.query(sql, function (err, data) {
-    res.send("jcdjc");
-    // res.sendFile(__dirname + "/login.html");
+    // res.send("jcdjc");
+    res.sendFile(__dirname + "/login.html");
   });
 });
 // for login page
@@ -60,7 +63,7 @@ app.post("/login", function (req, res) {
   const password = req.body.password;
   const data = `SELECT * FROM user1 WHERE email='${email}' AND password='${password}'`;
   con.query(data, function (err, result) {
-    if (result) {
+    if (result.length > 0) {
       // console.log(result[0].username);
       res.render(__dirname + "/profile.html", { result: result });
     } else {
@@ -77,29 +80,20 @@ app.post("/logout", function (req, res) {
   // const sql = `SELECT * FROM user1 WHERE email='${email}' AND password='${password}'`;
   // con.query(sql, function (err, result) {});
 });
-//  profile update
-// app.post("/profile", function (req, res) {
-//   const username = req.body.username;
-//   console.log(username);
-//   const email = req.body.email;
-//   const password = req.body.password;
-//   const sql = `UPDATE user1 SET username='${username}' WHERE email='${email}' AND password='${password}'`;
-//   console.log(sql, "dsfdsfsdfdsfds");
-//   con.query(sql, function (err, data) {
-//     console.log({ data: data });
-//     res.render(__dirname + "/updateform.html", "updated successfully");
-//   });
-// });
-app.post("/profileupdate", function (req, res) {
+
+// update profile api
+app.post("/profile", function (req, res) {
   const username = req.body.username;
-  console.log(username, "uuuuuuuuuuuuuuuuuu");
   const email = req.body.email;
   const password = req.body.password;
   const data = `UPDATE user1 SET username='${username}' WHERE email='${email}' AND password='${password}'`;
   con.query(data, function (err, result) {
     if (result) {
-      // console.log(result[0].username);
-      res.render(__dirname + "/updateform.html");
+      // console.log(result, "resssssss");
+      // res.send("successfully updated");
+      // res.render(__dirname + "/updated.html", { result: result });
+      // res.send("updated successfully");
+      res.render(__dirname + "/home.html");
     } else {
       res.send("please provide valid email and password");
     }
