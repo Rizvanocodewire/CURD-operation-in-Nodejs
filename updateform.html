@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>update profile</title>
+  </head>
+  <body>
+    <form action="/profileupdate" method="post">
+      <div clas="container">
+        <div class="content">
+          <h1>Welcome to profile page</h1>
+
+          <div class="updatedrecord">
+            <div class="username">
+              <label>username</label>
+              <input type="text" name="username"  />
+            </div>
+            <div class="username">
+              <label>email</label>
+              <input
+                type="text"
+                name="email"
+               
+                readonly
+              />
+            </div>
+            <div class="password">
+              <label>password</label>
+              <input
+                type="password"
+                name="password"
+                
+                readonly
+              />
+            </div>
+            <button type="submit">save</button>
+        </div>
+      </div>
+    </form>
+  </body>
+</html>
